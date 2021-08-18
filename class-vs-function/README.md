@@ -185,3 +185,10 @@ import { useEffect } from 'react';
     document.title = `Eu tenho ${likes} likes`;
   }, [likes]);
 ```
+
+## Artigos
+- [React sem ES6](https://pt-br.reactjs.org/docs/react-without-es6.html)
+- [Componentes e Props](https://pt-br.reactjs.org/docs/components-and-props.html)
+- [Como os componentes de função são diferentes de componentes de classe?](https://overreacted.io/pt-br/how-are-function-components-different-from-classes/)
+- [React hoje e amanhã. O que muda com os Hooks?](https://www.devmedia.com.br/react-hoje-e-amanha-o-que-muda-com-os-hooks/40314)
+- [Por Que Nós Escrevemos super(props)?](https://overreacted.io/pt-br/why-do-we-write-super-props/)
