@@ -1,13 +1,13 @@
-import ClassComponent from './components/ClassComponent';
-// import FunctionComponent from './components/FunctionComponent';
+// import ClassComponent from './components/ClassComponent';
+import FunctionComponent from './components/FunctionComponent';
 
 const App = () => (
   <>
-    <ClassComponent bg="red" />  
+    <FunctionComponent bg="red" />
     <hr />
-    <ClassComponent bg="green" />
+    <FunctionComponent bg="green" />
     <hr />
-    <ClassComponent bg="pink" />
+    <FunctionComponent bg="pink" />
   </>
 );
 

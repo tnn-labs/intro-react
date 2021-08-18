@@ -1,70 +1,187 @@
-# Getting Started with Create React App
+# class-vs-function
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Componente de classe
 
-## Available Scripts
+### Estrutura inicial
+```js
+import React, { Component } from 'react';
 
-In the project directory, you can run:
+class ClassComponent extends Component {
+  render() {
+	  return (
+      <button
+        style={{ backgroundColor: 'red' }}
+      >
+        likes | 0
+      </button>
+    );
+  };
+}
 
-### `yarn start`
+export default ClassComponent;
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Trabalhando com props
+```js
+render() {
+  const { bg } = this.props;
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  return (
+    <button
+      style={{ backgroundColor: bg }}
+    >
+      likes | 0
+    </button>
+  );
+};
+```
+### Estado
+```js
+class ClassComponent extends Component {
+  constructor(props) {
+    super(props);
 
-### `yarn test`
+    this.state = {
+      likes: 50
+    }
+  }
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  render() {
+    const { likes } = this.state;
 
-### `yarn build`
+    return (
+      <button>
+        likes | {likes}
+      </button>
+    );
+  };
+}
+```
+### Manipulações com funções
+```js
+class ClassComponent extends Component {
+  constructor(props) {
+    super(props);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    this.state = {
+      likes: 50
+    }
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    this.addLike = this.addLike.bind(this);
+  }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  addLike() {
+    this.setState(state => ({
+      likes: state.likes + 1
+    }));
+  };
 
-### `yarn eject`
+  render() {
+    const { bg } = this.props;
+    const { likes } = this.state;
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    return (
+      <button
+        style={{ backgroundColor: bg }}
+        onClick={this.addLike}
+      >
+        likes | {likes}
+      </button>
+    );
+  };
+}
+```
+### Ciclo de vida
+```js
+componentDidMount() {
+  document.title = `Eu tenho ${this.state.likes} likes`;
+}
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+componentDidUpdate(prevProps, prevState) {
+  if (prevState.likes !== this.state.likes) {
+    document.title = `Eu tenho ${this.state.likes} likes`;
+  }
+}
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Componente de função
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Estrutura inicial
+```js
+import React from 'react';
 
-## Learn More
+const FunctionComponent = () => {
+  return (
+    <button
+      style={{ backgroundColor: 'red' }}
+    >
+      likes | 10
+    </button>
+  );
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+export default FunctionComponent;
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Trabalhando com props
+```js
+const FunctionComponent = ({ bg }) => {
+  return (
+    <button
+      style={{ backgroundColor: bg }}
+    >
+      likes | 10
+    </button>
+  );
+}
+```
 
-### Code Splitting
+### Estado
+```js
+import React, { useState } from 'react';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+const FunctionComponent = ({ bg }) => {
+  const [likes, setLikes] = useState(15);
 
-### Analyzing the Bundle Size
+  return (
+    <button
+      style={{ backgroundColor: bg }}
+    >
+      likes | {likes}
+    </button>
+  );
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+export default FunctionComponent;
+```
 
-### Making a Progressive Web App
+### Manipulações com funções
+```js
+import React, { useState } from 'react';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+const FunctionComponent = ({ bg }) => {
+  const [likes, setLikes] = useState(15);
 
-### Advanced Configuration
+  const addLike = () => setLikes(likes + 1);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  return (
+    <button
+      style={{ backgroundColor: bg }}
+      onClick={addLike}
+    >
+      likes | {likes}
+    </button>
+  );
+}
 
-### Deployment
+export default FunctionComponent;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Ciclo de vida
+```js
+import { useEffect } from 'react';
 
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  useEffect(() => {
+    document.title = `Eu tenho ${likes} likes`;
+  }, [likes]);
+```
